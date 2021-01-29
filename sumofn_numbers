@@ -3,14 +3,14 @@
 int main()
 {
 	int n;
-float sum=0, a;
+    float sum=0.0, a;
 	printf("\nHow many numbers do you want to add? :");
 	scanf("%d", &n);
 	
 	for(int i=0; i<n; i++)
 	{
 		printf("\nEnter a number :");
-		scanf("%f", a);
+		scanf("%f", &a);
 		sum+=a;
 	}
 
