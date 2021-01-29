@@ -14,6 +14,7 @@ int main()
 	scanf("%f%f", &p2.x, &p2.y);
 	
 	float d = sqrt((p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p1.y)*(p1.y-p1.y));
+	
 	printf("\nThe distance between the points (%f, %f) and (%f, %f) is %f .",p1.x, p1.y, p2.x, p2.y, d);
 	return 0;
 }
