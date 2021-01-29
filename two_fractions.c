@@ -1,5 +1,15 @@
 #include<stdio.h>
 
+int gcdcalc(int n3, int d3)
+{
+    int gcd;
+    for(int i=1; i<n3 && i<d3; i++)
+	{
+		if(n3%i==0 && d3%i==0)
+			gcd=i;
+	}
+}
+
 int main()
 {
 	int n1,d1,n2,d2, n3, d3, gcd;
@@ -10,15 +20,10 @@ int main()
 	scanf("%d%d", &n2, &d2);
 	n3 = (n1*d2)+(d1*n2);
 	d3 = d1*d2;
-	
-	for(int i=1; i<n3 && i<d3; i++)
-	{
-		if(n3%i==0 && d3%i==0)
-			gcd=i;
-	}
-	n3 = n3/gcd;
+    gcd = gcdcalc(n3, d3);
+    n3 = n3/gcd;
 	d3 = d3/gcd;
-
+    
 	printf("\nThe sum of %d / %d and %d / %d is %d / %d", n1,d1,n2,d2,n3,d3);
 	return 0;
 }
