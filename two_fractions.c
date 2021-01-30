@@ -4,7 +4,7 @@ struct fraction{
     int n, d;
 };
 
-void sum(struct fraction *f1, struct fraction *f2, struct fraction *f3)
+void sum(struct fraction f1, struct fraction f2, struct fraction *f3)
 {
     f3->n = (f1->n*f2->d)+(f1->d*f2->n);
     f3->d = f1->d*f2->d;
