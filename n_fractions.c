@@ -2,19 +2,19 @@
 
 struct frac{
     int num, den;
-}f[50];
+};
 
-void addto(int i, int *x, int *y)
+void addto(int i, int *x, int *y, struct frac *f)
 {
     	if(i==0)
 	{
-		*x = f[i].num;
-		*y = f[i].den;
+		*x = f->num;
+		*y = f->den;
 	}
 	else
 	{
-	    *x = (f[i].num * (*y))+(f[i].den * (*x));
-	    *y = f[i].den * (*y);
+	    *x = (f->num * (*y))+(f->den * (*x));
+	    *y = f->den * (*y);
 
 	}
 }
@@ -36,22 +36,23 @@ void output(int x, int y)
     printf("\nThe sum of your entered fractions is %d / %d",x,y);
 }
 
-void input(int i)
+void input(int i, struct frac *f)
 {
     printf("\nEnter the numerator and denominator :");
-    scanf("%d %d", &f[i].num, &f[i].den);
+    scanf("%d %d", &f->num, &f->den);
 }
 
 int main()
 {
+    struct frac f[50];
     int n, x, y, gcd;
     printf("\nHow many fractions to be added? :");
     scanf("%d", &n);
     
     for(int i=0;i<n;i++)
     {
-        input(i);
-        addto(i, &x, &y);
+        input(i, &f[i]);
+        addto(i, &x, &y, &f[i]);
     }
     
     gcd = gcdcalc(x,y);
