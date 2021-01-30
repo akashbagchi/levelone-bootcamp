@@ -39,7 +39,7 @@ void output(struct fraction f1, struct fraction f2, int n, int d)
 int main()
 {
     struct fraction f1, f2;
-    int  n, d, gcd;
+    int  n, d;
     input(&f1, &f2);
     calc(&n, &d, &f1, &f2);
     output(f1, f2, n, d);
