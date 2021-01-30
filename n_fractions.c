@@ -6,7 +6,7 @@ struct frac{
 
 void addto(int i, int *x, int *y)
 {
-    if(i==0)
+    	if(i==0)
 	{
 		*x = f[i].num;
 		*y = f[i].den;
