@@ -39,7 +39,7 @@ void input(struct fraction *f1, struct fraction *f2)
 
 void output(struct fraction f1, struct fraction f2, struct fraction f3)
 {
-    printf("\nThe sum of %d / %d and %d / %d is %d / %d", f1.n,f1.d,f2.n,f2.d,f3.n,f3.d);
+    printf("\nThe sum of %d / %d and %d / %d is %d / %d\n", f1.n,f1.d,f2.n,f2.d,f3.n,f3.d);
 }
 
 int main()
