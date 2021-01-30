@@ -4,12 +4,9 @@ struct fraction{
     int n, d;
 };
 
-void sum(struct fraction f1, struct fraction f2, struct fraction *f3)
+int gcdcalc(struct fraction f3)
 {
-    f3->n = (f1->n*f2->d)+(f1->d*f2->n);
-    f3->d = f1->d*f2->d;
-    
-    int n1 = f3->n, n2 = f3->d;
+    int n1 = f3.n, n2 = f3.d;
     while (n1 != n2) 
     { 
         if (n1 > n2)         
@@ -17,7 +14,16 @@ void sum(struct fraction f1, struct fraction f2, struct fraction *f3)
         else        
             n2 -= n1;         
     } 
-    int gcd = n1;
+    return n1;
+}
+
+void sum(struct fraction f1, struct fraction f2, struct fraction *f3)
+{
+    int gcd;
+    f3->n = (f1.n*f2.d)+(f1.d*f2.n);
+    f3->d = f1.d*f2.d;
+    
+    gcd = gcdcalc(*f3);
     
     f3->n = f3->n/gcd;
     f3->d = f3->d/gcd;
@@ -40,7 +46,7 @@ int main()
 {
     struct fraction f1, f2, f3;
     input(&f1, &f2);
-    sum(&f1, &f2, &f3);
+    sum(f1, f2, &f3);
     output(f1, f2, f3);
     return 0;
 }
