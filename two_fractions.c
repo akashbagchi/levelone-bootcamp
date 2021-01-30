@@ -24,8 +24,8 @@ int main()
 	scanf("%d%d", &f2.n, &f2.d);
 	n3 = (f1.n*f2.d)+(f1.d*f2.n);
 	d3 = f1.d*f2.d;
-    gcd = gcdcalc(n3, d3);
-    n3 = n3/gcd;
+    	gcd = gcdcalc(n3, d3);
+    	n3 = n3/gcd;
 	d3 = d3/gcd;
     
 	printf("\nThe sum of %d / %d and %d / %d is %d / %d", f1.n,f1.d,f2.n,f2.d,n3,d3);
