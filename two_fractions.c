@@ -4,31 +4,51 @@ struct fraction{
     int n, d;
 };
 
-int gcdcalc(int n3, int d3)
+int gcdcalc(int n1, int n2) 
+{ 
+    while (n1 != n2) 
+    { 
+        if (n1 > n2)         
+            n1 -= n2;         
+        else        
+            n2 -= n1;         
+    } 
+    return n1; 
+}
+
+int calc1(int *n, int *d, struct fraction *f1, struct fraction *f2)
 {
-    int gcd;
-    for(int i=1; i<n3 && i<d3; i++)
-	{
-		if(n3%i==0 && d3%i==0)
-			gcd=i;
-	}
+    *n = (f1->n*f2->d)+(f1->d*f2->n);
+    *d = f1->d*f2->d;
+}
+
+int calc2(int *n, int *d, int gcd)
+{
+    *n = *n/gcd;
+    *d = *d/gcd;
+}
+
+void input(struct fraction *f1, struct fraction *f2)
+{
+    printf("\nEnter the numerator and denominator for the first fraction :");
+    scanf("%d%d", &f1->n, &f1->d);
+    printf("\nEnter the numerator and denominator for the second fraction :");
+    scanf("%d%d", &f2->n, &f2->d);
+}
+
+void output(struct fraction f1, struct fraction f2, int n, int d)
+{
+    printf("\nThe sum of %d / %d and %d / %d is %d / %d", f1.n,f1.d,f2.n,f2.d,n,d);
 }
 
 int main()
 {
     struct fraction f1, f2;
-	int  n3, d3, gcd;
-	int lcm;
-	printf("\nEnter the numerator and denominator for the first fraction :");
-	scanf("%d%d", &f1.n, &f1.d);
-	printf("\nEnter the numerator and denominator for the second fraction :");
-	scanf("%d%d", &f2.n, &f2.d);
-	n3 = (f1.n*f2.d)+(f1.d*f2.n);
-	d3 = f1.d*f2.d;
-    gcd = gcdcalc(n3, d3);
-    n3 = n3/gcd;
-	d3 = d3/gcd;
-    
-	printf("\nThe sum of %d / %d and %d / %d is %d / %d", f1.n,f1.d,f2.n,f2.d,n3,d3);
-	return 0;
+    int  n, d, gcd;
+    input(&f1, &f2);
+    calc1(&n, &d, &f1, &f2);
+    gcd = gcdcalc(n, d);
+    calc2(&n, &d, gcd);
+    output(f1, f2, n, d);
+    return 0;
 }
