@@ -16,13 +16,13 @@ int gcdcalc(int n1, int n2)
     return n1; 
 }
 
-int calc1(int *n, int *d, struct fraction *f1, struct fraction *f2)
+void calc1(int *n, int *d, struct fraction *f1, struct fraction *f2)
 {
     *n = (f1->n*f2->d)+(f1->d*f2->n);
     *d = f1->d*f2->d;
 }
 
-int calc2(int *n, int *d, int gcd)
+void calc2(int *n, int *d, int gcd)
 {
     *n = *n/gcd;
     *d = *d/gcd;
