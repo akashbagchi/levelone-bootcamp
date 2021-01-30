@@ -4,36 +4,36 @@ struct frac{
     int num, den;
 };
 
-void addto(int i, int *x, int *y, struct frac *f)
+void addto(int i, struct frac *fsum, struct frac *f)
 {
-    	if(i==0)
+    if(i==0)
 	{
-	    *x = f->num;
-            *y = f->den;
+	    fsum->num = f->num;
+        fsum->den = f->den;
 	}
 	else
 	{
-	    *x = (f->num * (*y))+(f->den * (*x));
-	    *y = f->den * (*y);
+	    fsum->num = (f->num * fsum->den)+(f->den * fsum->num);
+	    fsum->den = f->den * fsum->den;
 
 	}
 }
 
-int gcdcalc(int x, int y)
+int gcdcalc(struct frac fsum)
 {
-    while(x!=y)
+    while(fsum.num!=fsum.den)
     {
-        if(x>y)
-            x -= y;
+        if(fsum.num>fsum.den)
+            fsum.num -= fsum.den;
         else
-            y -= x;
+            fsum.den -= fsum.num;
     }
-    return x;
+    return fsum.num;
 }
 
-void output(int x, int y)
+void output(struct frac fsum)
 {
-    printf("\nThe sum of your entered fractions is %d / %d",x,y);
+    printf("\nThe sum of your entered fractions is %d / %d",fsum.num,fsum.den);
 }
 
 void input(int i, struct frac *f)
@@ -42,26 +42,26 @@ void input(int i, struct frac *f)
     scanf("%d %d", &f->num, &f->den);
 }
 
-void calc(int *x, int *y, int gcd)
+void calc(struct frac *fsum, int gcd)
 {
-    *x = *x/gcd;
-    *y = *y/gcd;
+    fsum->num = fsum->num/gcd;
+    fsum->den = fsum->den/gcd;
 }
 
 int main()
 {
-    struct frac f[50];
-    int n, x, y, gcd;
+    struct frac f[50], fsum;
+    int n, gcd;
     printf("\nHow many fractions to be added? :");
     scanf("%d", &n);
     for(int i=0;i<n;i++)
     {
         input(i, &f[i]);
-        addto(i, &x, &y, &f[i]);
+        addto(i, &fsum, &f[i]);
     }
-    gcd = gcdcalc(x,y);
-    calc(&x, &y, gcd);
-    output(x,y);
+    gcd = gcdcalc(fsum);
+    calc(&fsum, gcd);
+    output(fsum);
 	
     return 0;
 }
