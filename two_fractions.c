@@ -1,5 +1,9 @@
 #include<stdio.h>
 
+struct fraction{
+    int n, d;
+}f1, f2;
+
 int gcdcalc(int n3, int d3)
 {
     int gcd;
@@ -12,18 +16,18 @@ int gcdcalc(int n3, int d3)
 
 int main()
 {
-	int n1,d1,n2,d2, n3, d3, gcd;
+	int  n3, d3, gcd;
 	int lcm;
 	printf("\nEnter the numerator and denominator for the first fraction :");
-	scanf("%d%d", &n1, &d1);
+	scanf("%d%d", &f1.n, &f1.d);
 	printf("\nEnter the numerator and denominator for the second fraction :");
-	scanf("%d%d", &n2, &d2);
-	n3 = (n1*d2)+(d1*n2);
-	d3 = d1*d2;
+	scanf("%d%d", &f2.n, &f2.d);
+	n3 = (f1.n*f2.d)+(f1.d*f2.n);
+	d3 = f1.d*f2.d;
     gcd = gcdcalc(n3, d3);
     n3 = n3/gcd;
 	d3 = d3/gcd;
     
-	printf("\nThe sum of %d / %d and %d / %d is %d / %d", n1,d1,n2,d2,n3,d3);
+	printf("\nThe sum of %d / %d and %d / %d is %d / %d", f1.n,f1.d,f2.n,f2.d,n3,d3);
 	return 0;
 }
