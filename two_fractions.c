@@ -4,8 +4,12 @@ struct fraction{
     int n, d;
 };
 
-int gcdcalc(int n1, int n2) 
-{ 
+void calc(int *n, int *d, struct fraction *f1, struct fraction *f2)
+{
+    *n = (f1->n*f2->d)+(f1->d*f2->n);
+    *d = f1->d*f2->d;
+    
+    int n1 = *n, n2 = *d;
     while (n1 != n2) 
     { 
         if (n1 > n2)         
@@ -13,17 +17,8 @@ int gcdcalc(int n1, int n2)
         else        
             n2 -= n1;         
     } 
-    return n1; 
-}
-
-void calc1(int *n, int *d, struct fraction *f1, struct fraction *f2)
-{
-    *n = (f1->n*f2->d)+(f1->d*f2->n);
-    *d = f1->d*f2->d;
-}
-
-void calc2(int *n, int *d, int gcd)
-{
+    int gcd = n1;
+    
     *n = *n/gcd;
     *d = *d/gcd;
 }
@@ -46,9 +41,7 @@ int main()
     struct fraction f1, f2;
     int  n, d, gcd;
     input(&f1, &f2);
-    calc1(&n, &d, &f1, &f2);
-    gcd = gcdcalc(n, d);
-    calc2(&n, &d, gcd);
+    calc(&n, &d, &f1, &f2);
     output(f1, f2, n, d);
     return 0;
 }
