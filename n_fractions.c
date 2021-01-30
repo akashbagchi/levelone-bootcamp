@@ -63,5 +63,5 @@ int main()
     calc(&x, &y, gcd);
     output(x,y);
 	
-	return 0;
+    return 0;
 }
