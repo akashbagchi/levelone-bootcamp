@@ -50,25 +50,30 @@ void input(int i, struct frac *f)
     scanf("%d %d", &f->num, &f->den);
 }
 
-struct frac maininput(int *n)
+void maininput(int *n)
 {
-    struct frac f[50], fsum;
     printf("\nHow many fractions to be added? :");
     scanf("%d", n);
-    for(int i=0;i<(*n);i++)
+}
+
+struct frac findsum(int n)
+{
+    struct frac fsum, f[50];
+    for(int i=0;i<n;i++)
     {
         input(i, &f[i]);
         addto(i, &fsum, f[i]);
     }
     
-    return fsum;
+    gcdcalc(&fsum);
+    return fsum;   
 }
 
 int main()
 {
     int n;
-    struct frac fsum = maininput(&n);
-    gcdcalc(&fsum);
+    maininput(&n);
+    struct frac fsum = findsum(n);
     output(fsum);
     return 0;
 }
