@@ -1,0 +1,111 @@
+#include<stdio.h>
+
+//Structure for student
+struct student{
+	char name[50];
+	int score[50];
+	char grade;
+	float result;
+};
+typedef struct student stu;
+
+//Structure for gradebook
+struct gradebook{
+	char subject[40];
+	int n_weights;
+	float weights[50];
+	int n_students;
+	stu student[50];
+};
+typedef struct gradebook gb;
+
+void nsub(int *n)
+{
+	printf("\nEnter the number of subjects in gradebook: ");
+	scanf("%d", n);
+}
+
+void primary_input(gb *gbook)
+{
+	printf("\nEnter subject name: ");
+	scanf("%s", gbook->subject);
+	printf("\nEnter number of students: ");
+	scanf("%d", &gbook->n_students);
+	printf("\nEnter number of weighted assignments: ");
+	scanf("%d", &gbook->n_weights);
+	printf("\n\nEnter the associated weights: ");
+	for(int i=0; i<gbook->n_weights; i++)
+		scanf("%f", &gbook->weights[i]);
+	printf("\n\nEnter the student name, followed by their achieved marks in each weighted assignment: ");
+	for(int i=0; i<gbook->n_students; i++)
+	{
+		scanf("%s", &gbook->student[i].name);
+		for(int j=0; j<gbook->n_weights; j++)
+			scanf("%d", &gbook->student[i].score[j]);
+	}
+}
+
+void input(int n, gb gb1[])
+{
+	for(int i=0; i<n; i++)
+		primary_input(&gb1[i]);
+}
+
+char gradeconvert(float r)
+{	
+	if(r>=0 && r<60)
+		return 'F';
+	else if(r>=60 && r<70)
+		return 'D';
+	else if(r>=70 && r<80)
+		return 'C';
+	else if(r>=80 && r<90)
+		return 'B';
+	else
+		return 'A';
+}
+
+void primary_compute(gb *gbook)
+{
+	float w=0.0;
+	for(int i=0; i<gbook->n_weights; i++)
+		w+=gbook->weights[i];
+	for(int i=0; i<gbook->n_students; i++)
+	{
+		gbook->student[i].result = 0.0;
+		for(int j=0; j<gbook->n_weights; j++)
+			gbook->student[i].result += gbook->student[i].score[j] * gbook->weights[j];
+		gbook->student[i].result /= w;
+		gbook->student[i].grade = gradeconvert(gbook->student[i].result);
+    }
+}
+
+void compute(int n, gb gb1[])
+{
+	for(int i=0; i<n; i++)
+		primary_compute(&gb1[i]);
+}
+
+void primary_output(gb *gbook)
+{
+	printf("\n\n%s\n", gbook->subject);
+	for(int i=0; i<gbook->n_students; i++)
+		printf("\nName : %s\nScore: %f\tGrade: %c", gbook->student[i].name, gbook->student[i].result, gbook->student[i].grade);
+}
+
+void output(int n, gb gb1[])
+{
+	for(int i=0; i<n; i++)
+		primary_output(&gb1[i]);
+}
+
+int main()
+{
+	int n_sub;
+	nsub(&n_sub);
+	gb gb1[n_sub];
+	input(n_sub, gb1);
+	compute(n_sub, gb1);
+	output(n_sub, gb1);
+    return 0;
+}
