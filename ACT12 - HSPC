@@ -1,0 +1,96 @@
+#include<stdio.h>
+struct unit_fraction
+{
+	int num;
+	int den;
+};
+typedef struct unit_fraction unit;
+
+struct Egyptian_fraction{
+	int m;
+	int den[100];
+	unit sum;
+};
+typedef struct Egyptian_fraction egyptian;
+
+int GCD(int a, int b)
+{
+	a=a<b?a:b;
+	if(b%a==0)
+		return a;
+	for(int i=a/2;i>=2;i--)
+	{
+		if(a%i==0 && b%i==0)
+			return i;
+	}
+	return 1;
+}
+
+int inp()
+{
+	int n;
+	printf("\nEnter the no. of fractions: \n");
+	scanf("%d",&n);
+	return n;
+}
+
+void primaryinput(egyptian *one)
+{
+	printf("\nEnter the no. of fractions to be summed: ");
+	scanf("%d",&one->m);
+	for(int i=0;i<one->m;i++)
+		scanf("%d", &one->den[i]);
+}
+
+void input_n(egyptian a[], int n)
+{
+	for(int i=0;i<n;i++)
+		primaryinput(&a[i]);
+}
+
+void primarycomp(egyptian *one)
+{
+	unit r;
+	r.num=0;
+	r.den=1;
+	int gcd;
+	for(int i=0; i<one->m;i++)
+	{
+		one->sum.num = (r.num*one->den[i])+r.den;
+		one->sum.den = r.den*one->den[i];
+		gcd=GCD(one->sum.num, one->sum.den);
+		one->sum.num/=gcd;
+		one->sum.den/=gcd;
+		r=one->sum;
+	}
+}
+
+void compute_n(egyptian a[], int n)
+{
+	for(int i=0;i<n;i++)
+		primarycomp(&a[i]);
+}
+
+void primaryoutput(egyptian *one)
+{
+	for(int i=0;i<(one->m)-1;i++)
+        printf("1/%d +",one->den[i]);
+    printf("1/%d = %d/%d\n",one->den[(one->m)-1],one->sum.num,one->sum.den);
+}
+
+void output_n(egyptian a[], int n)
+{
+	for(int i=0;i<n;i++)
+		primaryoutput(&a[i]);
+}
+
+int main()
+{
+	int n;
+	egyptian a[100];
+	n = inp();
+	input_n(a,n);
+	compute_n(a,n);
+	output_n(a,n);
+	return 0;
+}
